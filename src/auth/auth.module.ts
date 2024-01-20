@@ -16,7 +16,7 @@ import { HeaderApiKeyStrategy } from './api-key.strategy';
     PassportModule,
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => ({
-        secret: configService.get('ASA_DB_APP_AUTH_SECRET'),
+        secret: configService.getOrThrow('APP_AUTH_SECRET'),
         signOptions: { expiresIn: 3600 },
       }),
       inject: [ConfigService],

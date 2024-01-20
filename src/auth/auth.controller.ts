@@ -4,17 +4,15 @@ import {
   UseGuards,
   Body,
   Req,
-  UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { UserLoginInterceptor } from '../interceptor/message-broker/user-login.interceptor';
 import { Role } from '@/user/role/role.enum';
 import { User } from '../user/schemas/user.schema';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
-import { LoginBody } from './schemas/login-body.schema';
 import { LocalAuthGuard } from './local-auth.guard';
-import { UserJwt } from './schemas/user-jwt.schema';
+import { Signin } from './dtos/signin.dto';
+import { UserJwt } from './dtos/user-jwt.dto';
 
 @ApiTags('authentication')
 @Controller('auth')
@@ -24,13 +22,12 @@ export class AuthController {
     private readonly userService: UserService,
   ) {}
 
-  @ApiBody({ type: () => LoginBody })
+  @ApiBody({ type: () => Signin })
   @ApiResponse({ type: () => UserJwt })
   @UseGuards(LocalAuthGuard)
-  @Post('login')
-  @UseInterceptors(UserLoginInterceptor)
-  async login(@Body() body: LoginBody, @Req() req: any): Promise<UserJwt> {
-    return await this.authService.login(body, req);
+  @Post('signin')
+  async signin(@Body() body: Signin, @Req() req: any): Promise<UserJwt> {
+    return await this.authService.signin(body, req);
   }
 
   @ApiBody({ type: User })

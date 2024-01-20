@@ -16,7 +16,7 @@ export class HeaderApiKeyStrategy extends PassportStrategy(Strategy) {
   }
 
   public validate = (apiKey: string, done: (error: Error, data: any) => {}) => {
-    if (this.configService.get('ASA_DB_APP_API_KEY') === apiKey) {
+    if (this.configService.get('APP_API_KEY') === apiKey) {
       done(null, { roles: ['robot'] });
       return;
     }
