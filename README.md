@@ -68,6 +68,15 @@ $ pnpm run test:e2e
 # test coverage
 $ pnpm run test:cov
 ```
+### Environment
+|Name|Description  |
+|--|--|
+| APP_BE_PORT | The port on which the application will listen |
+| APP_AUTH_SECRET | The secret phrase used by the JWT service
+| APP_SALT | The rounds used for password hashing
+| APP_API_KEY | The API key for robotic authentication
+| APP_DB_URI | MongoDB connection string
+
 ## Roles
 For the time being, the roles are harcoded in an enum (*/src/user/role/role.enum.ts*).
 
